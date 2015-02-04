@@ -1,0 +1,30 @@
+---
+Name: useraccountsextensions
+---
+
+Member:
+  extensions:
+    - UserAccount_Member_Extension
+    - UserAccount_MemberProfilePic_Extension
+    - UserAccount_MemberExtrafields_Extension
+    
+UserAccountPage_Controller:
+  extensions:
+    # Because of Uploadfield errors, an extra extension on the controller
+    - UserAccount_ProfilePic_Controller_Extension
+    - UserAccount_MemberExtrafields_Controller_Extension
+    
+UserAccountRegistrationPage_Controller:
+  extensions:
+    - UserAccount_MemberExtrafields_Controller_Extension
+    
+---
+Name: useraccountsdefaultconfig
+---
+UserAccounts:
+  allow_profile_viewing: true
+  allow_profile_editing: true
+  send_frontend_update_notifications: true
+  # If editing others' profiles is allowed, groups of users can be selected 
+  # to be able to edit/add accounts on the UserAccountPage in the CMS
+  #allow_other_profiles_editing: true 

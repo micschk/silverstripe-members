@@ -1,12 +1,12 @@
 <?php
 
-class MemberRegistrationForm extends Form{
+class UserAccount_CreateForm extends Form{
 
 	private static $allowed_actions = array(
-		'register'
+		'doCreate'
 	);
 	
-	function __construct($controller,$name = "MemberRegistrationForm", $fields = null){
+	function __construct($controller,$name = "UserAccount_CreateForm", $fields = null){
 		if(!$fields){
 			$restrictfields = array(
 				Member::get_unique_identifier_field(),'FirstName','Surname'
@@ -21,9 +21,9 @@ class MemberRegistrationForm extends Form{
 		$fields->push(new ConfirmedPasswordField("Password"));
 		
 		$actions = new FieldList(
-			$register = new FormAction('register',"Register")		
+			$register = new FormAction('doCreate',"Create account")		
 		);
-		$validator = new MemberRegistration_Validator(
+		$validator = new MemberCreation_Validator(
 			Member::get_unique_identifier_field(),
 			'FirstName',
 			'Surname'
@@ -34,36 +34,44 @@ class MemberRegistrationForm extends Form{
 			$this->enableSpamProtection();
 		}
 		
-		$this->extend('updateMemberRegistrationForm');
+		$this->extend('updateMemberCreationForm');
 	}
 	
-	public function register($data, $form){
+	public function doCreate($data, $form){
 
 		//log out existing user
-		if($member = Member::currentUser()){
-			$member->logOut();
-		}
+//		if($member = Member::currentUser()){
+//			$member->logOut();
+//		}
 		
 		$member = Member::create();
 		$form->saveInto($member);
 		$member->write();
-		$this->extend('onRegister');
-		$member->logIn();
 		
-		if($back = Session::get("BackURL")){
-			Session::clear("BackURL");
-			return $this->Controller()->redirect($back);
+		// add to group set in UserAccountPage
+		$group = $this->controller->Group();
+		if($group->exists()){
+			$group->Members()->add($member);
 		}
-		if($link = $member->getProfileLink()){
-			return $this->controller->redirect($link);
-		}
+		
+		// extension hook
+		$this->extend('onCreate');
+//		$member->logIn();
+		
+//		if($back = Session::get("BackURL")){
+//			Session::clear("BackURL");
+//			return $this->Controller()->redirect($back);
+//		}
+//		if($link = $member->getProfileLink()){
+//			return $this->controller->redirect($link);
+//		}
 		
 		return $this->controller->redirect($this->controller->Link());
 	}
 	
 }
 
-class MemberRegistration_Validator extends Member_Validator{
+class MemberCreation_Validator extends Member_Validator{
 	
 	public function php($data) {
 		$valid = parent::php($data);

@@ -1,21 +1,31 @@
 {
-	"name": "burnbright/silverstripe-members",
-	"description": "Silverstripe extra member features. Registration page, profile page, send temp password.",
+	"name": "micschk/silverstripe-useraccounts",
+	"description": "Silverstripe (front-end) user accounts module. Configurable UseraccountsPage providing list of users, adding/deleting & updating of accounts. Registration page also included.",
 	"type": "silverstripe-module",
 	"license": "BSD-3-Clause",
-	"keywords": ["silverstripe","members","registration"],
+	"keywords": ["silverstripe","members","registration","useraccounts"],
 	"require": {
 		"silverstripe/framework": "~3.1"
 	},
 	"extra": {
-		"installer-name": "members"
+		"installer-name": "useraccounts"
 	},
 	"authors": [
 		{
-			"name": "Jeremy Shipman",
-			"homepage": "https://github.com/jedateach",
-			"role": "Developer"
+			"name": "Jeremy Shipman (parts, taken from Members module)",
+			"homepage": "https://github.com/jedateach"
+		},
+		{
+            "name": "Morven Lewis-Everley (parts, taken from Users module)",
+            "email": "morven@i-lateral.com"
+        },
+		{
+			"name": "Michael van Schaik",
+			"homepage": "https://github.com/micschk"
 		}
-	]
+	],
+    "extra": {
+        "installer-name": "useraccounts"
+    }
 
 }
