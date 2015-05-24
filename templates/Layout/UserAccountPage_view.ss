@@ -15,7 +15,7 @@ $Form
 				$Email<br />
 				<% if Created %>Member Since : $Created.Nice<br /><% end_if %>
 				<% if Email %>Email: $Email<br /><% end_if %>
-				<a href="{$Top.Link}edit/$ID">edit</a>
+				<% if $canEdit %><a href="{$Top.Link}edit/$ID">edit</a><% end_if %>
 				<% if $ID==$Top.currentMemberID %><a href="{$Top.Link}changepassword/">change password</a><% end_if %>
 			</p>
 		<% end_with %>

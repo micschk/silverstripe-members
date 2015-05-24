@@ -16,6 +16,7 @@ class UserAccount_Member_Extension extends DataExtension{
 			$action
 		);
 	}
+	
 
 	//allow content editors to CVED (CRUD)
 
@@ -23,24 +24,30 @@ class UserAccount_Member_Extension extends DataExtension{
 		if(Permission::check("CMS_ACCESS_CMSMain")){
 			return true;
 		}
+		return false;
 	}
 
 	public function canView($member = null) {
+		return true; // @TODO: set permissions for view on the intranet
 		if(Permission::check("CMS_ACCESS_CMSMain")){
 			return true;
 		}
+		return false;
 	}
 
 	public function canEdit($member = null) {
-		if(Permission::check("CMS_ACCESS_CMSMain")){
+		if(Permission::check("CMS_ACCESS_CMSMain") 
+				|| $this->owner->ID == Member::currentUserID()){
 			return true;
 		}
+		return false;
 	}
 
 	public function canDelete($member = null) {
 		if(Permission::check("CMS_ACCESS_CMSMain")){
 			return true;
 		}
+		return false;
 	}
 
 }

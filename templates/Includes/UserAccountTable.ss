@@ -15,12 +15,18 @@
 					<td>$Surname</td>
 					<td>$Email</td>
 					<td>
-						<a href="{$Top.Link}view/$ID">view</a>
-						<a href="{$Top.Link}edit/$ID">edit</a>
+						<% if $canView %>
+							<a href="{$Top.Link}view/$ID">view</a>
+						<% end_if %>
+						<% if $canEdit %>
+							<a href="{$Top.Link}edit/$ID">edit</a>
+						<% end_if %>
 						<% if $ID==$Top.currentMemberID %>
 							<a href="{$Top.Link}changepassword/">change password</a>
 						<% end_if %>
-						<a href="{$Top.Link}delete/$ID">remove account</a>
+						<% if $canDelete %>
+							<a href="{$Top.Link}delete/$ID">remove account</a>
+						<% end_if %>
 					</td>
 				</tr>
 			<% end_loop %>

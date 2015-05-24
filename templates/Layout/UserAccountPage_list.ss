@@ -5,4 +5,6 @@ $Form
 
 <% include UserAccountTable %>
 
-<a href="{$Top.Link}addaccount">add account</a>
+<% if $CurrentMember.canCreate %>
+	<a href="{$Top.Link}addaccount">add account</a>
+<% end_if %>

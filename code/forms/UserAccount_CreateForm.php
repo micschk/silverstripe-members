@@ -39,10 +39,7 @@ class UserAccount_CreateForm extends Form{
 	
 	public function doCreate($data, $form){
 
-		//log out existing user
-//		if($member = Member::currentUser()){
-//			$member->logOut();
-//		}
+		//Debug::dump('called');
 		
 		$member = Member::create();
 		$form->saveInto($member);
@@ -55,7 +52,7 @@ class UserAccount_CreateForm extends Form{
 		}
 		
 		// extension hook
-		$this->extend('onCreate');
+		$this->extend('onCreate', $data, $form);
 //		$member->logIn();
 		
 //		if($back = Session::get("BackURL")){

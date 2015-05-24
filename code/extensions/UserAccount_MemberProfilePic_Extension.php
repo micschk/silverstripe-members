@@ -132,6 +132,7 @@ class UserAccount_ProfilePic_Controller_Extension extends Extension{
 		
 		// Add memberID to uploadfield so members cannot overwrite eachothers files;
 		$editedAccountID = $this->owner->edited_account_id;
+		if(!$editedAccountID) $editedAccountID = Member::currentUserID(); //Fallback
 		$UploadField->setFolderName( 'profileimages/'.$editedAccountID );
 		
 		$fields->push($UploadField);
